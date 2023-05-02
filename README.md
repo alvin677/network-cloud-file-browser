@@ -24,7 +24,8 @@ depending on operating system.
 Then enter the IPv4 address following with ':80/files'
 *example:* 
 ```http://192.168.58.19:80/files```
-*make sure it's http and not https*
+
+*make sure it's http and not https!!*
 
 # Screenshots
 ![Screenshot_22](https://user-images.githubusercontent.com/112005397/235750362-fbb20fda-59a8-4dd4-b4e5-4b40a69b6fd4.png)
