@@ -24,6 +24,12 @@ http.createServer(function (request, response) {
                         let data = fs.readFileSync(filePath+'/'+file, { encoding: 'utf8', flag: 'r' });
                         html += `<a class="file" style="color:blue;" href="${pathPiece}/${file}">${file}:</a><br /><font class="text">${data}</font><br/><br />`;
                     }
+                    else if (file.toLowerCase().endsWith('.mov') || file.toLowerCase().endsWith('.mp4') ) {
+                        html += `<video class="video" src="${pathPiece}/${file}" controls></video><br/>`;
+                    } 
+                    else if (file.toLowerCase().endsWith('.mp3') || file.toLowerCase().endsWith('.wav') ) {
+                        html += `<font style = "font-weight:bold;">${file}</font><br /><audio class="video" src="${pathPiece}/${file}" controls></audio><br/>`;
+                    } 
                     else {
                         html += `<a class="file" style="color:blue;" href="${pathPiece}/${file}">${file}</a><br/>`; // Is file and not png, jpg or gif
                     }
