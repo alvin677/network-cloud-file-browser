@@ -28,9 +28,8 @@ Then enter the IPv4 address following with ':80/files'
 # Screenshots
 ![Screenshot_22](https://user-images.githubusercontent.com/112005397/235750362-fbb20fda-59a8-4dd4-b4e5-4b40a69b6fd4.png)
 
-Automatically creates image element of .png, .jpg and .gif files
+Automatically creates image elements of .png, .jpg and .gif files
 ![image](https://user-images.githubusercontent.com/112005397/235750524-0da40c21-d893-4efc-849a-99b829649504.png)
 
 Automatically view content of .txt and .md files
 ![image](https://user-images.githubusercontent.com/112005397/235750785-eeb6d27c-ab44-4b73-8e9b-230d14581498.png)
-
