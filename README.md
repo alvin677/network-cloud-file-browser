@@ -35,5 +35,6 @@ Automatically view content of .txt and .md files
 ![image](https://user-images.githubusercontent.com/112005397/235750785-eeb6d27c-ab44-4b73-8e9b-230d14581498.png)
 
 Automatically create player for audio and video files
+
 ![image](https://user-images.githubusercontent.com/112005397/235753167-d3232e7f-c3a2-4327-92a2-a6e4cdd3a763.png)
 ![image](https://user-images.githubusercontent.com/112005397/235753407-67f3d919-c510-41eb-a47f-d8dac1531008.png)
