@@ -1,5 +1,5 @@
 # Wifi File Browser
-Browse files on a computer through the web-browser. Download files, upload files, view images and read text documents.
+Browse files on a computer through the web-browser. Download files, upload files, create folders, view images and read text documents.
 
 # Installation Guide
 To set this up, download the **app.js** file and use **Node.js** (https://nodejs.org/en) to run it.
