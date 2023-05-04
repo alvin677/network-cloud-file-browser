@@ -34,6 +34,12 @@ http.createServer(function (request, response) {
     }
     }
 
+    else if(request.url.startsWith('/newfolder')) {
+        let folderName = request.url.split('n=');
+        let fPath = request.headers['referer'].split('/').slice(3).join('/');
+        fs.mkdirSync(decodeURI(fPath)+'/'+decodeURI(folderName[1]));
+    }
+
     else if (request.url.startsWith('/files')) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         let html = `<style>body {font-family:sans-serif;} a {font-size:20px;}</style><h1>File Manager</h1>
@@ -60,7 +66,13 @@ function handleUpload(f){
   xhr.open('POST','/upload?f='+f.name,true);
   xhr.send(f);
 }
+function newFolder(name) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/newfolder?n='+name);
+    xhr.send();
+}
         </script>
+        <button onclick = "let folderName = prompt('Folder name:'); newFolder(folderName);">New Folder</button><br />
         <input id = "file" type="file" onchange="handleFile(this.files);" multiple><button onclick = "startUp();">Upload</button><br />
         <font>Folders are </font><font style = "color:orange">orange</font><font>, files are </font><font style = "color:blue">blue</font><font>. Click on a file to download it. Right click on Images to "Save as".</font><br /><br /><br />`;
         filePath = decodeURI(filePath);
