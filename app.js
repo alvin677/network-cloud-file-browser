@@ -51,7 +51,7 @@ function handleUpload(f){
   var xhr=new XMLHttpRequest();
   xhr.onreadystatechange=function(){
     if(this.readyState==4&&this.status==200){
-      alert("Uploaded!");
+      console.log("Uploaded: "+f.name+" successfully!");
     }
   };
   xhr.upload.addEventListener("progress",function(e){
