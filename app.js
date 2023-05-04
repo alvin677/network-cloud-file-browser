@@ -3,14 +3,64 @@ var fs = require('fs');
 var path = require('path');
 
 http.createServer(function (request, response) {
-
     var filePath = '.' + request.url;
     if (filePath == './') {
         filePath = './index.html';
     }
-    else {
+
+    else if (request.url.slice(0,7)==='/upload') {
+        let filename = "";
+        var split=request.url.split('f=');
+        if(split[1]){
+            split=split[1].split('&')[0];
+            filename=split;
+        }
+        console.log(filename,split);
+        if(!filename||filename.indexOf('../')!==-1){
+            response.statusCode = 405;
+        }else{
+        const filepath = 'files/'+decodeURI(filename);
+      const ws = fs.createWriteStream(filepath);
+      ws.on('error',()=>response.statusCode=500);
+      request.pipe(ws);
+  
+      request.on('end', () => { ws.close();
+            response.statusCode = 200;
+            response.end('File uploaded successfully');
+      });
+      return;
+    }
+    }
+
+    else if (request.url.startsWith('/files')) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
-        let html = '<style>body {font-family:sans-serif;} a {font-size:20px;}</style><h1>File Manager</h1><font>Folders are </font><font style = "color:orange">orange</font><font>, files are </font><font style = "color:blue">blue</font><font>. Click on a file to download it. Right click on Images to "Save as".</font><br /><br /><br />';
+        let html = `<style>body {font-family:sans-serif;} a {font-size:20px;}</style><h1>File Manager</h1>
+        <script>
+        var files=[];
+function handleFile(e){
+  files=e;
+}
+function startUp(){
+  for(var i=0;i<files.length;i++)handleUpload(files[i]);
+}
+function handleUpload(f){
+  if(f.size<1024||f.size>10737418240)return alert(f.size/1024/1024/1024+" GB is too much!");
+  document.body.onbeforeunload=function(){return 1;};
+  var xhr=new XMLHttpRequest();
+  xhr.onreadystatechange=function(){
+    if(this.readyState==4&&this.status==200){
+      alert("Uploaded!");
+    }
+  };
+  xhr.upload.addEventListener("progress",function(e){
+    let progress=((e.loaded/e.total)||1);
+  });
+  xhr.open('POST','/upload?f='+f.name,true);
+  xhr.send(f);
+}
+        </script>
+        <input id = "file" type="file" onchange="handleFile(this.files);" multiple><button onclick = "startUp();">Upload</button><br />
+        <font>Folders are </font><font style = "color:orange">orange</font><font>, files are </font><font style = "color:blue">blue</font><font>. Click on a file to download it. Right click on Images to "Save as".</font><br /><br /><br />`;
         filePath = decodeURI(filePath);
         fs.readdir(filePath, (err, files) => {
             try {
