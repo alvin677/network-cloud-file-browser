@@ -19,7 +19,9 @@ http.createServer(function (request, response) {
         if(!filename||filename.indexOf('../')!==-1){
             response.statusCode = 405;
         }else{
-        const filepath = 'files/'+decodeURI(filename);
+            let fPath = request.headers['referer'].split('/').slice(3).join('/');
+            console.log(fPath);
+        const filepath = decodeURI(fPath)+'/'+decodeURI(filename);
       const ws = fs.createWriteStream(filepath);
       ws.on('error',()=>response.statusCode=500);
       request.pipe(ws);
