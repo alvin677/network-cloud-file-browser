@@ -46,7 +46,7 @@ function startUp(){
   for(var i=0;i<files.length;i++)handleUpload(files[i]);
 }
 function handleUpload(f){
-  if(f.size<1024||f.size>10737418240)return alert(f.size/1024/1024/1024+" GB is too much!");
+  if(f.size>10737418240)return alert(f.size/1024/1024/1024+" GB is too much!");
   document.body.onbeforeunload=function(){return 1;};
   var xhr=new XMLHttpRequest();
   xhr.onreadystatechange=function(){
