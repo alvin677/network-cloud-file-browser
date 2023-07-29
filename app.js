@@ -27,6 +27,7 @@ http.createServer(function (request, response) {
       request.pipe(ws);
   
       request.on('end', () => { ws.close();
+            console.log(filename +" successfully uploaded");
             response.statusCode = 200;
             response.end('File uploaded successfully');
       });
@@ -43,6 +44,7 @@ http.createServer(function (request, response) {
     else if (request.url.startsWith('/files')) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         let html = `<style>body {font-family:sans-serif;} a {font-size:20px;}</style><h1>File Manager</h1>
+        <textarea id = "log"></textarea>
         <script>
         var files=[];
 function handleFile(e){
@@ -58,6 +60,7 @@ function handleUpload(f){
   xhr.onreadystatechange=function(){
     if(this.readyState==4&&this.status==200){
       console.log("Uploaded: "+f.name+" successfully!");
+      document.getElementById('log').value += "Uploaded file "+f.name+"!";
     }
   };
   xhr.upload.addEventListener("progress",function(e){
